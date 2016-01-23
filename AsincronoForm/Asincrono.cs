@@ -29,37 +29,34 @@ namespace AsincronoForm
         {
             return Task.Run(() => {
                 Thread.SpinWait(cont);
-                while (true)
-                {
-                    return cont - 5;
-
-                }
-
+                return cont/1000;
             });
         }
       
         private void Reinciar()
         {
             this.AcciontextBox.Clear();
-            this.AccionDosTextBox.Clear();
+            this.AccionDosTextBox.Text= "0";
+            this.AccionTimer.Stop();
             this.Text = "Prueba";
-            this.AccionTimer.Enabled = false;
+            
         }
+       
         private async void AccionUnobutton_Click(object sender, EventArgs e)
         {
             int segundo = await EsperaAsync(3000);
-            this.AcciontextBox.Text = "Metodo Retornado en " + segundo + "seg";
+            this.AcciontextBox.Text = "Metodo Retornado en " + segundo + " seg";
             this.Text = "Jose Chavez";
         }
 
         private async void AccionDosButton_Click(object sender, EventArgs e)
         {
-            int contador = await EsperaAsync(10000); //De todos Modos Espera los dos segundo.
+             await EsperaAsync(5000); //De todos Modos Espera los dos segundo.
             this.AccionDosTextBox.Text = DateTime.Now.ToLongTimeString();
-
+            this.AccionTimer.Start();
         }
 
-        private void ReiniciarButton_Click(object sender, EventArgs e)
+        private  void ReiniciarButton_Click(object sender, EventArgs e)
         {
             Reinciar();
         }
